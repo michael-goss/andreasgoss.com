@@ -1,0 +1,21 @@
+{
+  "name": "andreasgoss.com",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
+    "bun-types": "latest"
+  },
+  "scripts": {
+    "start": "bun build ./src/index.tsx --outfile=./dist/bundle.js",
+    "dev": "bun build ./src/index.tsx --outfile=./dist/bundle.js --watch"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
