@@ -6,16 +6,22 @@ To install dependencies:
 bun install
 ```
 
-To run:
+To bundle the application:
 
 ```bash
-bun run start
+bun run bundle
 ```
 
 To develop:
 
 ```bash
-bun run dev
+bun run bundle-dev
+```
+
+To run the application / run the webserver:
+
+```bash
+bun run start
 ```
 
 To deploy with Docker locally @ localhost:8080

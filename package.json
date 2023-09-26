@@ -8,8 +8,9 @@
     "bun-types": "latest"
   },
   "scripts": {
-    "start": "bun build ./src/index.tsx --outfile=./dist/bundle.js",
-    "dev": "bun build ./src/index.tsx --outfile=./dist/bundle.js --watch"
+    "bundle": "bun build ./src/index.tsx --outfile=./dist/bundle.js",
+    "bundle-dev": "bun build ./src/index.tsx --outfile=./dist/bundle.js --watch",
+    "start": "bun run index.ts"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
