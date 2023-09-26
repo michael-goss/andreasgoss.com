@@ -11,6 +11,7 @@ interface AliveData {
 const aliveData: AliveData = { data: [] };
 
 Bun.serve({
+  port: Bun.env.PORT,
   fetch(req) {
     const url = new URL(req.url).pathname;
 
@@ -39,8 +40,11 @@ Bun.serve({
 function fetchAndMeasure() {
   // Record the start time
   const startTime = Date.now();
+  const timestampNow = new Date(startTime).toISOString();
+  const endpoint = Bun.env.ALIVE_ENDPOINT;
+  const interval = parseInt(Bun.env.ALIVE_INTERVAL_S || '1') + Math.floor(Math.random() * 100);
 
-  fetch(`https://andreasgoss.com/alive`)
+  fetch(endpoint || '')
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -53,7 +57,7 @@ function fetchAndMeasure() {
 
       // add new data to aliveData object
       aliveData.data.push({
-        timestamp: new Date(Date.now()).toISOString(),
+        timestamp: timestampNow,
         responseTime: timeElapsed,
       });
 
@@ -68,15 +72,19 @@ function fetchAndMeasure() {
         { timestamp: '', responseTime: -Infinity }
       );
 
-      // limit to 100 entries
-      aliveData.data = aliveData.data.slice(-100);
+      // limit to 300 entries
+      aliveData.data = aliveData.data.slice(-300);
 
-      // Call the function again after 1 minute
-      setTimeout(fetchAndMeasure, 60 * 1000);
+      // Call the function again after some interval
+      setTimeout(fetchAndMeasure, interval * 1000);
     })
     .catch(() => {
-      // Call the function again after 1 seconds even if there's an error
-      setTimeout(fetchAndMeasure, 60 * 1000);
+      // Call the function again after some interval even if there's an error
+      aliveData.data.push({
+        timestamp: timestampNow,
+        responseTime: -1,
+      });
+      setTimeout(fetchAndMeasure, interval * 1000);
     });
 }
 
