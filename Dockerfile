@@ -1,5 +1,5 @@
 # --- Build Stage ---
-FROM oven/bun:latest as builder
+FROM oven/bun:latest
 
 # Set the working directory
 WORKDIR /app
@@ -11,16 +11,10 @@ COPY . /app
 RUN bun install
 
 # Build the application
-RUN bun build ./src/index.tsx --outfile=./dist/bundle.js
-
-# --- Serve Stage ---
-FROM nginx:alpine
-
-# Copy the built application from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+RUN bun bundle
 
 # Expose port 80
 EXPOSE 80
 
-# Start Nginx when the container starts
-CMD ["nginx", "-g", "daemon off;"]
+# Serve bun http server
+CMD bun start
