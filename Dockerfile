@@ -13,8 +13,8 @@ RUN bun install
 # Build the application
 RUN bun bundle
 
-# Expose port 80
-EXPOSE 80
+# Expose server port
+EXPOSE $PORT
 
 # Serve bun http server
 CMD bun start

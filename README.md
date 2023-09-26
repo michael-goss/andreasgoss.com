@@ -27,6 +27,6 @@ bun run start
 To deploy with Docker locally @ localhost:8080
 
 ```bash
-docker build -t andreasgoss:latest .
+docker build --build-arg PORT=$(grep PORT .env | cut -d '=' -f2) -t andreasgoss:latest .
 docker run -d -p 8080:80 andreasgoss:latest
 ```
