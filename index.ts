@@ -13,6 +13,7 @@ const aliveData: AliveData = { data: [] };
 Bun.serve({
   port: Bun.env.PORT,
   fetch(req) {
+    const fileWhiteList = ['/bundle.js'];
     const url = new URL(req.url).pathname;
 
     const outDir = './dist';
@@ -22,7 +23,11 @@ Bun.serve({
     } else if (url === '/alive') {
       return new Response(JSON.stringify(aliveData));
     } else {
-      fileName = `${outDir}/${url}`;
+      if (fileWhiteList.includes(url)) {
+        fileName = `${outDir}/${url}`;
+      } else {
+        return new Response('404', { status: 404 });
+      }
     }
 
     return new Response(Bun.file(fileName));
