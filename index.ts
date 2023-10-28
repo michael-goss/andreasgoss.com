@@ -13,7 +13,7 @@ const aliveData: AliveData = { data: [] };
 Bun.serve({
   port: Bun.env.PORT,
   fetch(req) {
-    const fileWhiteList = ['/bundle.js', '/styles.css', '/andi.png', '/andi_lustig.png'];
+    const fileWhiteList = ['/bundle.js', '/styles.css', '/andi.png', '/andi_lustig.png', 'bg_teppich.webp'];
     const url = new URL(req.url).pathname;
 
     const outDir = './dist';
