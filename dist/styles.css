@@ -14,14 +14,10 @@ html,
   height: calc(100vh - 48px);
   background-color: #eee;
   position: relative;
+  overflow: hidden;
 }
 
 .movingObject {
-  height: 100px;
-  width: 100px;
-  background-color: darkorchid;
-  border: 2px solid black;
-  border-radius: 100%;
   position: absolute;
 }
 

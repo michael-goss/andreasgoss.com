@@ -18,7 +18,8 @@ export function MovingObject({
   direction,
   setDirection,
 }: MovingObjectProps) {
-  const playerDiameter = 104;
+  const playerDiameter = 400;
+  const angle = (Math.atan2(direction.dx, direction.dy) * 180) / Math.PI;
 
   const move = (position: Coordinates, direction: Direction): Coordinates => {
     return { x: position.x + direction.dx, y: position.y - direction.dy };
@@ -66,5 +67,13 @@ export function MovingObject({
     setTimeout(stepForward, 1000 / speed);
   }, [direction, position]);
 
-  return <div className="movingObject" style={{ left: position.x, top: position.y }} />;
+  return (
+    <img
+      src="./andi_lustig.png"
+      width={playerDiameter}
+      height={playerDiameter}
+      className="movingObject"
+      style={{ left: position.x, top: position.y, rotate: `${angle}deg` }}
+    />
+  );
 }

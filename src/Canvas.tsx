@@ -8,7 +8,7 @@ export function Canvas() {
   const [canvasSize, setCanvasSize] = useState<Coordinates>();
   const [direction, setDirection] = useState<Direction>(normalizeDirection({ dx: 1, dy: 1 }));
   const [position, setPosition] = useState<Coordinates>({ x: 100, y: 100 });
-  const [speed, setSpeed] = useState(400);
+  const [speed, setSpeed] = useState(250);
 
   useEffect(() => {
     function updateSize() {
