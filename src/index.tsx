@@ -2,10 +2,11 @@
 /// <reference lib="dom.iterable" />
 
 import { createRoot } from 'react-dom/client';
+import { Canvas } from './Canvas';
 const root = createRoot(document.getElementById('root')!);
 
 const App = () => {
-  return <h2>under construction...</h2>;
+  return <Canvas />;
 };
 
 root.render(<App />);
