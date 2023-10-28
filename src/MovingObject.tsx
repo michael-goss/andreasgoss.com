@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Coordinates, Direction } from './interfaces';
 
 interface MovingObjectProps {
@@ -18,8 +18,9 @@ export function MovingObject({
   direction,
   setDirection,
 }: MovingObjectProps) {
+  const [wasClicked, setWasClicked] = useState(false);
   const playerDiameter = 400;
-  const angle = (Math.atan2(direction.dx, direction.dy) * 180) / Math.PI;
+  const playerBorder = 30;
 
   const move = (position: Coordinates, direction: Direction): Coordinates => {
     return { x: position.x + direction.dx, y: position.y - direction.dy };
@@ -32,6 +33,11 @@ export function MovingObject({
       position.y + playerDiameter > windowLimits.y, // bottom
       position.x < 0, // left
     ];
+  };
+
+  const getPlayerRotation = (direction: Direction): number => {
+    const blub = direction.dx > 0 ? 90 : 270;
+    return (Math.atan2(direction.dx, direction.dy) * 180) / Math.PI - blub;
   };
 
   const bounce = (direction: Direction, hitPositions: boolean[]): Direction => {
@@ -63,17 +69,34 @@ export function MovingObject({
     setPosition({ x: nextPosition.x, y: nextPosition.y });
   };
 
+  const onClick = () => {
+    if (wasClicked) {
+      setWasClicked(false);
+    } else {
+      setWasClicked(true);
+      setTimeout(() => setWasClicked(false), 5000);
+    }
+  };
+
   useEffect(() => {
     setTimeout(stepForward, 1000 / speed);
   }, [direction, position]);
 
   return (
     <img
-      src="./andi_lustig.png"
-      width={playerDiameter}
-      height={playerDiameter}
+      src={wasClicked ? './andi_lustig.png' : './andi.png'}
+      width={playerDiameter - playerBorder}
+      height={playerDiameter - playerBorder}
       className="movingObject"
-      style={{ left: position.x, top: position.y, rotate: `${angle}deg` }}
-    />
+      onMouseUp={onClick}
+      style={{
+        left: position.x,
+        top: position.y,
+        rotate: `${getPlayerRotation(direction)}deg`,
+        transform: `scaleX(${direction.dx > 0 ? -1 : 1})`,
+      }}
+    >
+      <div className="movingObject__inner" />
+    </img>
   );
 }

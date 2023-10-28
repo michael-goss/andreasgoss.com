@@ -15,10 +15,18 @@ html,
   background-color: #eee;
   position: relative;
   overflow: hidden;
+  background-image: url('./bg_teppich.webp');
+  filter: saturate(0.7);
 }
 
 .movingObject {
   position: absolute;
+  cursor: pointer;
+  /* background-image: linear-gradient(to right, #edd77f, #bb9cd5); */
+  background-color: #ffffffbb;
+  border-radius: 50%;
+  filter: saturate(1.7);
+  border: 15px solid #289bdb;
 }
 
 footer {
