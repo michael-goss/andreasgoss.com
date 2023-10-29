@@ -21,11 +21,8 @@ export function Canvas() {
         setPosition({ x: 1, y: 1 });
       }
     }
-    // Call the function to set the initial size
     updateSize();
-    // Add an event listener to update the size on window resize
     window.addEventListener('resize', updateSize);
-    // Cleanup function to remove the event listener when the component unmounts
     return () => window.removeEventListener('resize', updateSize);
   }, []);
 
@@ -44,7 +41,12 @@ export function Canvas() {
           />
         )}
       </main>
-      <Controls speed={speed} setSpeed={setSpeed} setDirection={setDirection} />
+      <Controls
+        size={canvasSize?.x || 0 < 600 ? 'small' : 'big'}
+        speed={speed}
+        setSpeed={setSpeed}
+        setDirection={setDirection}
+      />
     </>
   );
 }
