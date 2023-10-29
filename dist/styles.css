@@ -29,6 +29,10 @@ html,
   border: 15px solid #289bdb;
 }
 
+.movingObject--small {
+  border: 10px solid #289bdb;
+}
+
 footer {
   width: 100vw;
   height: 48px;
