@@ -40,7 +40,7 @@ html,
 
 footer {
   height: 96px;
-  background: linear-gradient(#313571 30%, #282b51);
+  background: linear-gradient(#504d4f 50%, #454243);
   color: white;
   display: flex;
   flex-direction: row;
@@ -55,6 +55,7 @@ footer {
 }
 
 .klingel {
+  cursor: pointer;
   height: 40px;
   width: 40px;
 }
@@ -64,5 +65,9 @@ footer {
 }
 
 .klingel:hover path {
+  fill: #2cabf1;
+}
+
+.klingel:active path {
   fill: #1c6c99;
 }
