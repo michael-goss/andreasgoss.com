@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Coordinates, Direction } from './interfaces';
 
 interface MovingObjectProps {
@@ -9,6 +9,7 @@ interface MovingObjectProps {
   setPosition: React.Dispatch<React.SetStateAction<Coordinates>>;
   direction: Direction;
   setDirection: React.Dispatch<React.SetStateAction<Direction>>;
+  showFunnyFace: boolean;
 }
 
 export function MovingObject({
@@ -19,8 +20,8 @@ export function MovingObject({
   setPosition,
   direction,
   setDirection,
+  showFunnyFace,
 }: MovingObjectProps) {
-  const [wasClicked, setWasClicked] = useState(false);
   const playerDiameter = size === 'big' ? 400 : 240;
   const playerBorder = size === 'big' ? 30 : 20;
 
@@ -71,26 +72,16 @@ export function MovingObject({
     setPosition({ x: nextPosition.x, y: nextPosition.y });
   };
 
-  const onClick = () => {
-    if (wasClicked) {
-      setWasClicked(false);
-    } else {
-      setWasClicked(true);
-      setTimeout(() => setWasClicked(false), 5000);
-    }
-  };
-
   useEffect(() => {
     setTimeout(stepForward, 1000 / speed);
   }, [direction, position]);
 
   return (
     <img
-      src={wasClicked ? './andi_lustig.png' : './andi.png'}
+      src={showFunnyFace ? './andi_lustig.png' : './andi.png'}
       width={playerDiameter - playerBorder}
       height={playerDiameter - playerBorder}
       className={`movingObject ${size === 'small' ? 'movingObject--small' : ''}`}
-      onMouseUp={onClick}
       style={{
         left: position.x,
         top: position.y,

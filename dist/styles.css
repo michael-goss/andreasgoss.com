@@ -40,16 +40,29 @@ html,
 
 footer {
   height: 96px;
-  background-color: black;
-  padding: 0 1rem;
+  background: linear-gradient(#313571 30%, #282b51);
   color: white;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
 }
 
 .footer--small {
   gap: 1rem;
   padding: 0 0.5rem;
+}
+
+.klingel {
+  height: 40px;
+  width: 40px;
+}
+
+.klingel path {
+  fill: #289bdb;
+}
+
+.klingel:hover path {
+  fill: #1c6c99;
 }

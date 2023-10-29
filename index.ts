@@ -36,6 +36,7 @@ Bun.serve({
     } else if (url === '/alive') {
       return new Response(JSON.stringify(aliveData));
     } else {
+      console.log('###', url);
       if (fileWhiteList.includes(url)) {
         fileName = `${outDir}/${url}`;
       } else {
