@@ -8,7 +8,9 @@ export function Canvas() {
   const [canvasSize, setCanvasSize] = useState<Coordinates>();
   const [direction, setDirection] = useState<Direction>(normalizeDirection({ dx: 1, dy: 1 }));
   const [position, setPosition] = useState<Coordinates>({ x: 1, y: 1 });
+  const [hasFunnyFace, setFunnyFace] = useState(false);
   const [speed, setSpeed] = useState(150);
+  const size = (canvasSize?.x || 0) < 600 ? 'small' : 'big';
 
   useEffect(() => {
     function updateSize() {
@@ -31,7 +33,8 @@ export function Canvas() {
       <main id="field" className="canvas">
         {!!canvasSize && (
           <MovingObject
-            size={canvasSize.x < 600 ? 'small' : 'big'}
+            showFunnyFace={hasFunnyFace}
+            size={size}
             canvasSize={canvasSize}
             speed={speed}
             position={position}
@@ -42,10 +45,11 @@ export function Canvas() {
         )}
       </main>
       <Controls
-        size={canvasSize?.x || 0 < 600 ? 'small' : 'big'}
+        size={size}
         speed={speed}
         setSpeed={setSpeed}
         setDirection={setDirection}
+        setFunnyFace={setFunnyFace}
       />
     </>
   );
