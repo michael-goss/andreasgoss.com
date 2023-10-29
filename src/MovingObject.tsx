@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Coordinates, Direction } from './interfaces';
 
 interface MovingObjectProps {
+  size: 'big' | 'small';
   canvasSize: Coordinates;
   speed: number;
   position: Coordinates;
@@ -11,6 +12,7 @@ interface MovingObjectProps {
 }
 
 export function MovingObject({
+  size,
   canvasSize,
   speed,
   position,
@@ -19,8 +21,8 @@ export function MovingObject({
   setDirection,
 }: MovingObjectProps) {
   const [wasClicked, setWasClicked] = useState(false);
-  const playerDiameter = 400;
-  const playerBorder = 30;
+  const playerDiameter = size === 'big' ? 400 : 240;
+  const playerBorder = size === 'big' ? 30 : 20;
 
   const move = (position: Coordinates, direction: Direction): Coordinates => {
     return { x: position.x + direction.dx, y: position.y - direction.dy };
@@ -87,7 +89,7 @@ export function MovingObject({
       src={wasClicked ? './andi_lustig.png' : './andi.png'}
       width={playerDiameter - playerBorder}
       height={playerDiameter - playerBorder}
-      className="movingObject"
+      className={`movingObject ${size === 'small' ? 'movingObject--small' : ''}`}
       onMouseUp={onClick}
       style={{
         left: position.x,
@@ -95,8 +97,6 @@ export function MovingObject({
         rotate: `${getPlayerRotation(direction)}deg`,
         transform: `scaleX(${direction.dx > 0 ? -1 : 1})`,
       }}
-    >
-      <div className="movingObject__inner" />
-    </img>
+    />
   );
 }

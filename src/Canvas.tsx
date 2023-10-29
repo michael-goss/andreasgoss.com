@@ -7,8 +7,8 @@ import { normalizeDirection } from './utils';
 export function Canvas() {
   const [canvasSize, setCanvasSize] = useState<Coordinates>();
   const [direction, setDirection] = useState<Direction>(normalizeDirection({ dx: 1, dy: 1 }));
-  const [position, setPosition] = useState<Coordinates>({ x: 100, y: 100 });
-  const [speed, setSpeed] = useState(250);
+  const [position, setPosition] = useState<Coordinates>({ x: 1, y: 1 });
+  const [speed, setSpeed] = useState(150);
 
   useEffect(() => {
     function updateSize() {
@@ -18,6 +18,7 @@ export function Canvas() {
           x: canvas.offsetWidth,
           y: canvas.offsetHeight,
         });
+        setPosition({ x: 1, y: 1 });
       }
     }
     // Call the function to set the initial size
@@ -33,6 +34,7 @@ export function Canvas() {
       <main id="field" className="canvas">
         {!!canvasSize && (
           <MovingObject
+            size={canvasSize.x < 600 ? 'small' : 'big'}
             canvasSize={canvasSize}
             speed={speed}
             position={position}
