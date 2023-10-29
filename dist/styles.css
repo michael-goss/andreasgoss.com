@@ -1,3 +1,6 @@
+@import url('button.css');
+@import url('slider.css');
+
 body,
 html,
 #root {
@@ -7,11 +10,14 @@ html,
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  height: 100vh;
+  max-height: -webkit-fill-available;
+  background-color: #99cf6c;
 }
 
 .canvas {
   width: 100vw;
-  height: calc(100vh - 48px);
+  height: calc(100% - 96px);
   background-color: #eee;
   position: relative;
   overflow: hidden;
@@ -22,7 +28,6 @@ html,
 .movingObject {
   position: absolute;
   cursor: pointer;
-  /* background-image: linear-gradient(to right, #edd77f, #bb9cd5); */
   background-color: #ffffffbb;
   border-radius: 50%;
   filter: saturate(1.7);
@@ -34,12 +39,17 @@ html,
 }
 
 footer {
-  width: 100vw;
-  height: 48px;
+  height: 96px;
   background-color: black;
+  padding: 0 1rem;
   color: white;
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 2rem;
+}
+
+.footer--small {
   gap: 1rem;
+  padding: 0 0.5rem;
 }

@@ -16,9 +16,12 @@ Bun.serve({
     const fileWhiteList = [
       '/bundle.js',
       '/styles.css',
+      '/button.css',
+      '/slider.css',
       '/andi.png',
       '/andi_lustig.png',
       '/bg_teppich.webp',
+      '/ring.mp3',
       '/apple-touch-icon.png',
       '/favicon-16x16.png',
       '/favicon-32x32.png',
