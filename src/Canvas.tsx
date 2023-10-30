@@ -6,11 +6,12 @@ import { normalizeDirection } from './utils';
 
 export function Canvas() {
   const [canvasSize, setCanvasSize] = useState<Coordinates>();
+  const [speed, setSpeed] = useState(150);
+  const maxSpeed = 1000;
   const [direction, setDirection] = useState<Direction>(normalizeDirection({ dx: 1, dy: 1 }));
   const [position, setPosition] = useState<Coordinates>({ x: 1, y: 1 });
   const [hasFunnyFace, setFunnyFace] = useState(false);
-  const [speed, setSpeed] = useState(150);
-  const size = (canvasSize?.x || 0) < 600 ? 'small' : 'big';
+  const size = (canvasSize?.x || 0) < 600 || canvasSize?.y || 0 ? 'small' : 'big';
 
   useEffect(() => {
     function updateSize() {
@@ -37,6 +38,7 @@ export function Canvas() {
             size={size}
             canvasSize={canvasSize}
             speed={speed}
+            maxSpeed={maxSpeed}
             position={position}
             setPosition={setPosition}
             direction={direction}
@@ -47,6 +49,7 @@ export function Canvas() {
       <Controls
         size={size}
         speed={speed}
+        maxSpeed={maxSpeed}
         setSpeed={setSpeed}
         setDirection={setDirection}
         setFunnyFace={setFunnyFace}

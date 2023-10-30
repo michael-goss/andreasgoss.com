@@ -4,15 +4,15 @@ import { normalizeDirection } from './utils';
 
 interface ControlsProps {
   size: 'small' | 'big';
+  maxSpeed: number;
   speed: number;
   setSpeed: (speed: number) => void;
   setDirection: (direction: Direction) => void;
   setFunnyFace: (val: boolean) => void;
 }
 
-export function Controls({ size, speed, setSpeed, setDirection, setFunnyFace }: ControlsProps) {
+export function Controls({ size, maxSpeed, speed, setSpeed, setDirection, setFunnyFace }: ControlsProps) {
   const isSmall = size === 'small';
-  const maxSpeed = 300;
 
   const onClickChangeDirection = () => {
     setDirection(normalizeDirection({ dx: Math.random() * 2 - 1, dy: Math.random() * 2 - 1 }));
