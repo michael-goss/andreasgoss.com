@@ -5,6 +5,7 @@ interface MovingObjectProps {
   size: 'big' | 'small';
   canvasSize: Coordinates;
   speed: number;
+  maxSpeed: number;
   position: Coordinates;
   setPosition: React.Dispatch<React.SetStateAction<Coordinates>>;
   direction: Direction;
@@ -16,6 +17,7 @@ export function MovingObject({
   size,
   canvasSize,
   speed,
+  maxSpeed,
   position,
   setPosition,
   direction,
@@ -25,8 +27,15 @@ export function MovingObject({
   const playerDiameter = size === 'big' ? 400 : 240;
   const playerBorder = size === 'big' ? 30 : 20;
 
-  const move = (position: Coordinates, direction: Direction): Coordinates => {
-    return { x: position.x + direction.dx, y: position.y - direction.dy };
+  const move = (
+    position: Coordinates,
+    direction: Direction,
+    speed: number,
+    maxSpeed: number
+  ): Coordinates => {
+    const normalSpeed = 0.15;
+    const speedFactor = speed / maxSpeed / normalSpeed;
+    return { x: position.x + direction.dx * speedFactor, y: position.y - direction.dy * speedFactor };
   };
 
   const hitsWindow = (position: Coordinates, windowLimits: Coordinates): boolean[] => {
@@ -59,7 +68,7 @@ export function MovingObject({
 
   const stepForward = () => {
     // calculate next position
-    let nextPosition = move(position, direction);
+    let nextPosition = move(position, direction, speed, maxSpeed);
     // check if next position would hit the window limit
     const hitPositions = hitsWindow(nextPosition, canvasSize);
 
@@ -67,13 +76,13 @@ export function MovingObject({
       // adjust direction when we're going to hit the window limit
       const newDirection = bounce(direction, hitPositions);
       setDirection(newDirection);
-      nextPosition = move(position, newDirection);
+      nextPosition = move(position, newDirection, speed, maxSpeed);
     }
     setPosition({ x: nextPosition.x, y: nextPosition.y });
   };
 
   useEffect(() => {
-    setTimeout(stepForward, 1000 / speed);
+    setTimeout(stepForward, 10);
   }, [direction, position]);
 
   return (
